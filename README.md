@@ -40,5 +40,56 @@ public class _1_Main {
         /*     N > 0 ? N * f(N - 1) : 1      */
     }
 }
-```
+```  
 
+<h4>Laboratory work 2.18.2</h4>
+
+<p>Create new project called TestCore2. Add package “com.brainacad.oop.testcore2”.
+   Write a program that counts how many nails can be purchased at $1 and what will 
+   surrender if they buy one of each kind of the nail 
+   (nails cost: $0.1, $0.2, $0.3, etc). The program output must be like next example:
+   4 items bought.</p>
+   <p>Money left over: $0.00</p>
+   
+```java
+public class _2_Main {
+
+    public static void main(String[] args) {
+
+        labWork_2_18_2();
+        nailsBuyingReport(new BigInteger("1"), new BigDecimal("0.4"));
+    }
+
+    private static void labWork_2_18_2() {
+        BigInteger amount = new BigInteger("1");
+        BigDecimal step = new BigDecimal("0.1");
+        BigDecimal counter = new BigDecimal(step.toString());
+        BigDecimal lastNail = new BigDecimal("0.4");
+        BigDecimal surrender = new BigDecimal(amount.toString());
+
+        for(counter = new BigDecimal("0.1");
+            counter.compareTo(lastNail) <= 0;
+            counter = counter.add(step))
+        {
+            surrender = surrender.subtract(counter);
+        }
+
+        NumberFormat curDef = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.println("Money left over: " + curDef.format(surrender));
+    }
+
+    private  static void nailsBuyingReport(BigInteger amount, BigDecimal nailPrize) {
+        BigDecimal surrender = new BigDecimal(amount.toString());
+        BigDecimal counter = new BigDecimal("0");
+
+        while(surrender.compareTo(nailPrize) >= 0) {
+            surrender = surrender.subtract(nailPrize);
+            counter = counter.add(new BigDecimal("1"));
+        }
+
+        NumberFormat curDef = NumberFormat.getCurrencyInstance(Locale.US);
+        System.out.format("Money left over: %s, number of nails bought: %s%n",
+                          curDef.format(surrender), counter);
+    }
+}
+```
